@@ -159,12 +159,36 @@ namespace dxvk {
                              m_device->properties().coreSubgroup.subgroupSize >= 1 &&
                              m_device->properties().coreSubgroup.supportedStages & VK_SHADER_STAGE_COMPUTE_BIT &&
                              m_device->properties().coreSubgroup.supportedOperations & VK_SUBGROUP_FEATURE_ARITHMETIC_BIT);
-
+  
+    // Print results for each feature
+    Logger::info("[RTX] Ray Tracing Support Check:");
+    Logger::info(str::format("  shaderInt16: ", m_device->features().core.features.shaderInt16));
+    Logger::info(str::format("  storageBuffer16BitAccess: ", m_device->features().vulkan11Features.storageBuffer16BitAccess));
+    Logger::info(str::format("  uniformAndStorageBuffer16BitAccess: ", m_device->features().vulkan11Features.uniformAndStorageBuffer16BitAccess));
+    Logger::info(str::format("  bufferDeviceAddress: ", m_device->features().vulkan12Features.bufferDeviceAddress));
+    Logger::info(str::format("  descriptorIndexing: ", m_device->features().vulkan12Features.descriptorIndexing));
+    Logger::info(str::format("  runtimeDescriptorArray: ", m_device->features().vulkan12Features.runtimeDescriptorArray));
+    Logger::info(str::format("  descriptorBindingPartiallyBound: ", m_device->features().vulkan12Features.descriptorBindingPartiallyBound));
+    Logger::info(str::format("  shaderStorageBufferArrayNonUniformIndexing: ", m_device->features().vulkan12Features.shaderStorageBufferArrayNonUniformIndexing));
+    Logger::info(str::format("  shaderSampledImageArrayNonUniformIndexing: ", m_device->features().vulkan12Features.shaderSampledImageArrayNonUniformIndexing));
+    Logger::info(str::format("  descriptorBindingVariableDescriptorCount: ", m_device->features().vulkan12Features.descriptorBindingVariableDescriptorCount));
+    Logger::info(str::format("  shaderInt8: ", m_device->features().vulkan12Features.shaderInt8));
+    Logger::info(str::format("  shaderFloat16: ", m_device->features().vulkan12Features.shaderFloat16));
+    Logger::info(str::format("  uniformAndStorageBuffer8BitAccess: ", m_device->features().vulkan12Features.uniformAndStorageBuffer8BitAccess));
+    Logger::info(str::format("  accelerationStructure: ", m_device->features().khrAccelerationStructureFeatures.accelerationStructure));
+    Logger::info(str::format("  rayQuery: ", m_device->features().khrRayQueryFeatures.rayQuery));
+    Logger::info(str::format("  rayTracingPipeline: ", m_device->features().khrDeviceRayTracingPipelineFeatures.rayTracingPipeline));
+    Logger::info(str::format("  khrShaderInt8Float16Types: ", m_device->extensions().khrShaderInt8Float16Types));
+    Logger::info(str::format("  subgroupSize >= 1: ", m_device->properties().coreSubgroup.subgroupSize >= 1));
+    Logger::info(str::format("  supportedStages & VK_SHADER_STAGE_COMPUTE_BIT: ", (m_device->properties().coreSubgroup.supportedStages & VK_SHADER_STAGE_COMPUTE_BIT) != 0));
+    Logger::info(str::format("  supportedOperations & VK_SUBGROUP_FEATURE_ARITHMETIC_BIT: ", (m_device->properties().coreSubgroup.supportedOperations & VK_SUBGROUP_FEATURE_ARITHMETIC_BIT) != 0));
+    
+    Logger::info(str::format("Final m_rayTracingSupported result: ", m_rayTracingSupported));
+  
     m_dlssSupported = (m_device->extensions().nvxBinaryImport &&
                        m_device->extensions().nvxImageViewHandle &&
                        m_device->extensions().khrPushDescriptor);
-
-
+  
     if (env::getEnvVar("DXVK_DUMP_SCREENSHOT_FRAME") != "") {
       m_screenshotFrameNum = stoul(env::getEnvVar("DXVK_DUMP_SCREENSHOT_FRAME"));
       m_screenshotFrameEnabled = true;
