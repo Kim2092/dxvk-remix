@@ -1114,7 +1114,7 @@ namespace dxvk {
       m_deviceFeatures.extVertexAttributeDivisor.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.extVertexAttributeDivisor);
     }
 
-    if (m_deviceExtensions.supports(VK_KHR_RAY_QUERY_EXTENSION_NAME)) {
+    if (m_deviceExtensions.supports(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME)) {
       m_deviceFeatures.khrRayQueryFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_QUERY_FEATURES_KHR;
       m_deviceFeatures.khrRayQueryFeatures.pNext = std::exchange(m_deviceFeatures.core.pNext, &m_deviceFeatures.khrRayQueryFeatures);
     }
